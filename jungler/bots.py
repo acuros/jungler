@@ -31,7 +31,7 @@ class NaverBot(object):
             f = Feed(title=entry.title,
                      summary=entry.summary,
                      content=self.get_detected_content(entry.link),
-                     url=entry.link,
+                     url=entry.originallink,
                      write_time=datetime.strptime(entry.published[:-6], '%a, %d %b %Y %H:%M:%S'))
             feeds.append(f)
         return feeds
