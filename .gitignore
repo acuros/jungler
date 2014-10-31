@@ -57,3 +57,5 @@ target/
 .idea
 secret.py
 *.db
+bower_components
+.webassets-cache
