@@ -22,7 +22,6 @@ class DefaultConfig(object):
     BASE_DIR = BASE_DIR = os.path.dirname(__file__)
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:///%s/jungler.db' % BASE_DIR
-    print SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO = False
     #SQLALCHEMY_POOL_SIZE = 64

@@ -28,8 +28,9 @@ def create_app(config=DefaultConfig(), verbose=False):
 
 
 def init_ext(app):
-    from jungler.ext import init_db
+    from jungler.ext import init_db, init_assets
     init_db(app)
+    init_assets()
 
 
 def init_log(app):
