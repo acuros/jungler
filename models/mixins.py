@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import datetime
 
+
 class SerializerMixin(object):
     """
     Mixin class for models.
