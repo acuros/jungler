@@ -1,14 +1,14 @@
 #-*- coding: utf-8 -*-
 import re
-import config
 import urllib
 import feedparser
-
-from models.feed import Feed
 
 from datetime import datetime
 
 from readability.readability import Document
+
+from jungler.config import DefaultConfig as config
+from jungler.models.feed import Feed
 
 
 class NaverBot(object):
@@ -32,7 +32,7 @@ class NaverBot(object):
                      summary=entry.summary,
                      content=self.get_detected_content(entry.link),
                      url=entry.link,
-                     created_time=datetime.strptime(entry.published[:-6], '%a, %d %b %Y %H:%M:%S'))
+                     write_time=datetime.strptime(entry.published[:-6], '%a, %d %b %Y %H:%M:%S'))
             feeds.append(f)
         return feeds
 
