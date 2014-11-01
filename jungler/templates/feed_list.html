@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>기사 목록</h1>
+    <hr/>
+    <div class="feed-list">
+        {% autoescape false %}
+        {% for feed in feeds %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="{{ url_for('feed.feed_detail', feed_id=feed.id) }}" class="feed-link">{{ feed.title }}</a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{ feed.summary }}
+                    <div class="keyword-list pull-right">
+                        {% for keyword in feed.keywords %}
+                            <span class="label label-primary">{{ keyword.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% endautoescape %}
+    </div>
+{% endblock %}

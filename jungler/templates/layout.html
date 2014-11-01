@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Jungler</title>
+
+        {% assets "css_lib" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
+        {% endassets %}
+
+        {% assets "css_dist" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
+        {% endassets %}
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Jungler</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        {% set url = request.path %}
+                        <li class="{% if url.startswith("/feed") %}active{% endif %}"><a href="{{ url_for('feed.feeds') }}">Home</a></li>
+                        <li class="{% if url.startswith("/keyword") %}active{% endif %}"><a href="{{ url_for('keyword.keywords') }}">Keyword</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div id="main" class="container">
+            {% block body %}{% endblock %}
+        </div><!-- /.container -->
+        {% assets "js_lib" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+
+        {% block extra %}
+        {% endblock extra %}
+    </body>
+</html>

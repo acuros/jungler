@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="feed-detail">
+        {% autoescape false %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ feed.title }}</h3>
+                <div class="write-time pull-right">{{ feed.write_time }}</div>
+            </div>
+            <div class="panel-body">
+                {{ feed.content }}
+            </div>
+        </div>
+        {% endautoescape %}
+    </div>
+{% endblock %}
