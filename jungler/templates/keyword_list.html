@@ -8,9 +8,42 @@
         {% for keyword in keywords %}
             <li class="list-group-item" data-id="{{ keyword.id }}">
                 {{ keyword.name }}
-                <span class="btn glyphicon glyphicon-remove pull-right btn-remove"></span>
+                <span class="btn glyphicon glyphicon-remove pull-right btn-remove" data-url="{{ url_for('keyword.keyword_delete', keyword_id=keyword.id) }}"></span>
             </li>
         {% endfor %}
        </ul>
     </div>
+{% endblock %}
+
+{% block extra %}
+    <script>
+        $('.btn-remove').click(function()
+        {
+            var url = $(this).attr('data-url');
+            if(confirm("정말로 삭제 하시겠습니까?") == true)
+            {
+                $.ajax(
+                {
+                    type: "delete",
+                    url: url,
+                    success:function(data)
+                    {
+                        if(data.status.code == 'OK')
+                        {
+                            alert('삭제 되었습니다.');
+                            location.href=location.href;
+                        }
+                        else
+                        {
+                            alert(data.status.reason);
+                        }
+                    },
+                    error:function(e)
+                    {
+                        alert('문제가 발생했습니다.\n다시 시도 해주세요.');
+                    }
+                });
+            }
+        })
+    </script>
 {% endblock %}
