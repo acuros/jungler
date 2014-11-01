@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for
 
 from jungler.config import DefaultConfig
 
@@ -23,7 +23,12 @@ def create_app(config=DefaultConfig(), verbose=False):
     app = Flask(__name__)
     app.config.from_object(config)
     init_ext(app)
-    init_log(app)
+    init_blueprints(app)
+
+    @app.route("/")
+    def index():
+        return redirect(url_for('feed.feeds'))
+
     return app
 
 
@@ -39,9 +44,11 @@ def init_log(app):
         os.makedirs('logs')
     import logging
     logging.basicConfig(filename='logs/db.log')
-    logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+    logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
 
-    from logging.handlers import RotatingFileHandler
-    handler = RotatingFileHandler('logs/request.log', maxBytes=100000, backupCount=1)
-    handler.setLevel(logging.INFO)
-    app.logger.addHandler(handler)
+
+def init_blueprints(app):
+    from jungler.web.feed import blueprint as feed
+    from jungler.web.keyword import blueprint as keyword
+    app.register_blueprint(feed)
+    app.register_blueprint(keyword)

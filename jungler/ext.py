@@ -32,13 +32,19 @@ def init_assets(app, verbose=False):
         return filters_
 
     assets = Environment(app)
+    assets.config['less_bin'] = '/usr/local/lib/node_modules/less/bin/lessc'
     assets.register(
         'css_lib',
         'bower_components/bootstrap/dist/css/bootstrap.css',
         filters=filters('cssmin'),
         output='dist/lib.css'
     )
-
+    assets.register(
+        'css_dist',
+        *hook_assets('css', excludes=[]),
+        filters=filters('cssmin'),
+        output='dist/dist.css'
+    )
     assets.register(
         'js_lib',
         'bower_components/jquery/dist/jquery.js',
