@@ -15,7 +15,7 @@ from jungler import secret
 
 class DefaultConfig(object):
     DEBUG = True
-    TESTING = True
+    TESTING = False
 
     SECRET_KEY = secret.SECRET_KEY
 
@@ -31,7 +31,7 @@ class DefaultConfig(object):
 
 
 class TestConfig(DefaultConfig):
-    pass
+    TESTING = True
 
 
 class DeployConfig(DefaultConfig):
