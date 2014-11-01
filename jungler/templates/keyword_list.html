@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>키워드 목록</h1>
+    <hr/>
+    <div class="keyword-list">
+       <ul class="list-group">
+        {% for keyword in keywords %}
+            <li class="list-group-item" data-id="{{ keyword.id }}">
+                {{ keyword.name }}
+                <span class="btn glyphicon glyphicon-remove pull-right btn-remove"></span>
+            </li>
+        {% endfor %}
+       </ul>
+    </div>
+{% endblock %}
