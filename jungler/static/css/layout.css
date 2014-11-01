@@ -1,0 +1,33 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+body
+{
+    padding-top: 20px;
+    font-family: 'Nanum Gothic', serif;
+}
+
+#main
+{
+    padding: 40px 0;
+}
+
+.feed-list .panel-title b, .feed-list .panel-body b
+{
+    color: red;
+}
+.feed-list .panel-body .keyword-list
+{
+    margin-top: 20px;
+}
+
+.feed-detail .panel-heading .write-time
+{
+    margin-top: -18px;
+}
+
+.keyword-list .list-group .list-group-item .btn-remove
+{
+    color: red;
+    padding: 0;
+    line-height: 1;
+}
