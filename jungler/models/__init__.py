@@ -1,2 +1,3 @@
 #-*- coding: utf-8 -*-
-from .feed import Feed
+from .keyword import Keyword
+from .feed import Feed, FeedKeywords

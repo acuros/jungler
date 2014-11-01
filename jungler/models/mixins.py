@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
-from flask import abort
+import datetime
 
-from datetime import datetime
+from flask import abort
 
 from jungler.ext import db
 
@@ -20,9 +20,9 @@ class TimestampMixin(object):
     Provides the :attr:`created_at` and :attr:`updated_at` audit timestamps
     """
     #: Timestamp for when this instance was created, in UTC
-    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
     #: Timestamp for when this instance was last updated (via the app), in UTC
-    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now, nullable=False)
 
 
 class CRUDMixin(object):
@@ -157,9 +157,9 @@ class SerializerMixin(object):
             return result
         elif SerializerMixin in value.__class__.__bases__:
             return value.serialize()
-        elif isinstance(value, datetime.date):
+        elif type(value) is datetime.date:
             return value.strftime('%Y-%m-%d')
-        elif isinstance(value, datetime.datetime):
+        elif type(value) is datetime.datetime:
             return value.strftime('%Y-%m-%d %H:%M')
         else:
             return value
