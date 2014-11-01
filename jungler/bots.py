@@ -14,9 +14,8 @@ from jungler.models.feed import Feed
 class NaverBot(object):
     url = 'http://openapi.naver.com/search'
 
-    def get_searched_feeds(self, keywords, feed_count=10):
-        if not keywords:
-            return []
+    def get_searched_feeds(self, keyword, feed_count=10):
+        keywords = keyword.name.split(' ')
         keywords = '+'.join(keywords)
         query_dict = dict(
             key=config.NAVER_SEARCH_API_KEY,
@@ -33,6 +32,7 @@ class NaverBot(object):
                      content=self.get_detected_content(entry.link),
                      url=entry.originallink,
                      write_time=datetime.strptime(entry.published[:-6], '%a, %d %b %Y %H:%M:%S'))
+            f.keywords.append(keyword)
             feeds.append(f)
         return feeds
 
