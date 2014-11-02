@@ -31,3 +31,8 @@ body
     padding: 0;
     line-height: 1;
 }
+
+.page-header > a
+{
+    margin-top: -40px;
+}

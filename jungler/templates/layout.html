@@ -13,6 +13,7 @@
         {% assets "css_dist" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css" />
         {% endassets %}
+        {% block head %}{% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -37,7 +38,12 @@
         </nav>
 
         <div id="main" class="container">
-            {% block body %}{% endblock %}
+            <div class="page-header">
+                {% block page_head %}{% endblock %}
+            </div>
+            <div class="page-body">
+                {% block page_body %}{% endblock %}
+            </div>
         </div><!-- /.container -->
         {% assets "js_lib" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
