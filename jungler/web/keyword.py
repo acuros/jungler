@@ -3,6 +3,7 @@ from flask import Blueprint, request, render_template
 
 from jungler.models.keyword import Keyword
 from jungler.decorators import json_response
+from jungler.tasks import feeds_of_keyword_crawl
 
 blueprint = Blueprint('keyword', __name__, url_prefix='/keyword')
 
@@ -20,15 +21,20 @@ def keyword_create():
     else:
         name = request.form.get('name', None)
         if name:
-            Keyword.get_or_create(name=name)
-            return render_template('keyword_create.html', message=u'"%s" 키워드가 생성 되었습니다.' % name)
+            keyword = Keyword.get_by(name=name)
+            if not keyword:
+                keyword = Keyword(name=name)
+                keyword.save(True)
+                feeds_of_keyword_crawl.delay(keyword.id)
+                return render_template('keyword_create.html', message=u'"%s" 키워드가 생성 되었습니다.' % name)
+            else:
+                return render_template('keyword_create.html', message=u'이미 등록된 키워드입니다.')
         return render_template('keyword_create.html', message=u'키워드 이름을 입력해주세요.')
 
 
 @blueprint.route('s/<keyword_id>/delete', methods=['DELETE'])
 @json_response
 def keyword_delete(keyword_id):
-    print request.method
     keyword = Keyword.get(keyword_id)
     if not keyword:
         return dict(status=dict(reason=u'존재하지 않는 키워드입니다.', code='FAIL'))
