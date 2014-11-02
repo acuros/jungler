@@ -7,6 +7,8 @@
 
     :secret.DATABASE_PASSWORD: A password for database.
     :secret.SECRET_KEY: A secret key.
+    :secret.RABBITMQ_PASSWORD: A password for rabbitmq.
+
 """
 import os
 
@@ -28,6 +30,9 @@ class DefaultConfig(object):
     #SQLALCHEMY_MAX_OVERFLOW = 16
 
     NAVER_SEARCH_API_KEY = 'fc5ad3706cf041be6ec2b8fd2dda353b'
+    BROKER_URL = "amqp://jungler:%s@localhost:5672/jungler" % (
+        secret.RABBITMQ_PASSWORD
+    )
 
 
 class TestConfig(DefaultConfig):
