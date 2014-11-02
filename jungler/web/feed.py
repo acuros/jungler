@@ -8,7 +8,7 @@ blueprint = Blueprint('feed', __name__, url_prefix='/feed')
 
 @blueprint.route('s')
 def feeds():
-    feed_list = Feed.query.order_by(Feed.id.asc()).all()
+    feed_list = Feed.query.order_by(Feed.write_time.desc()).all()
     return render_template('feed_list.html', feeds=feed_list)
 
 
