@@ -3,13 +3,20 @@ import os
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from celery import Celery
+
 from jungler.config import DefaultConfig as Config
 
 db = SQLAlchemy()
+celery = Celery('jungler')
 
 
 def init_db(app):
     db.init_app(app)
+
+
+def init_celery(app):
+    celery.conf.update(app.config)
 
 
 def init_assets(app, verbose=False):

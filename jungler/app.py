@@ -33,9 +33,10 @@ def create_app(config=DefaultConfig(), verbose=False):
 
 
 def init_ext(app):
-    from jungler.ext import init_db, init_assets
+    from jungler.ext import init_db, init_assets, init_celery
     init_db(app)
     init_assets(app)
+    init_celery(app)
 
 
 def init_log(app):
