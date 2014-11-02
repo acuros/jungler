@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 import os
+import flask
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -7,8 +8,9 @@ from celery import Celery
 
 from jungler.config import DefaultConfig as Config
 
+
 db = SQLAlchemy()
-celery = Celery('jungler')
+celery = Celery('jungler', broker=Config.BROKER_URL)
 
 
 def init_db(app):
