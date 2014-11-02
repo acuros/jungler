@@ -15,7 +15,13 @@ from jungler.models.feed import Feed
 class NaverBot(object):
     url = 'http://openapi.naver.com/search'
 
-    def get_searched_feeds(self, keyword, feed_count=10):
+    def get_detected_content(self, url):
+        html = urllib.urlopen(url).read()
+        readable_article = Document(html).summary()
+        p = re.compile(r'<img.*?/>')
+        return p.sub('', readable_article)
+
+    def crawl(self, keyword, feed_count=10):
         keywords = keyword.name.split(' ')
         keywords = '+'.join(keywords)
         query_dict = dict(
@@ -43,9 +49,3 @@ class NaverBot(object):
             feeds.append(f)
         db.session.commit()
         return feeds
-
-    def get_detected_content(self, url):
-        html = urllib.urlopen(url).read()
-        readable_article = Document(html).summary()
-        p = re.compile(r'<img.*?/>')
-        return p.sub('', readable_article)
