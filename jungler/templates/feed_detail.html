@@ -1,6 +1,17 @@
 {% extends "layout.html" %}
-
-{% block body %}
+{% block head %}
+    <style>
+        .page-header
+        {
+            display: none;
+        }
+        .page-body
+        {
+            margin-top: 30px;
+        }
+    </style>
+{% endblock %}
+{% block page_body %}
     <div class="feed-detail">
         {% autoescape false %}
         <div class="panel panel-default">

@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 
-{% block body %}
+{% block page_head %}
     <h1>키워드 생성</h1>
-    <hr/>
+    <a href="{{ url_for('keyword.keywords') }}" type="button" class="btn btn-default pull-right">List</a>
+{% endblock %}
+{% block page_body %}
     <div class="keyword-create">
         <form role="form" method="post">
             <div class="form-group">
