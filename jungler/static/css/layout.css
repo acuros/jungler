@@ -32,7 +32,15 @@ body
     line-height: 1;
 }
 
-.page-header > a
+.page-header > .btn
 {
     margin-top: -40px;
+}
+
+.feed-list .tag-new
+{
+    color: red;
+    font-weight: bold;
+
+    margin-top: -20px;
 }

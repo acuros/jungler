@@ -11,7 +11,7 @@
         {% for keyword in keywords %}
             <li class="list-group-item" data-id="{{ keyword.id }}">
                 {{ keyword.name }}
-                <span class="btn glyphicon glyphicon-remove pull-right btn-remove" data-url="{{ url_for('keyword.keyword_delete', keyword_id=keyword.id) }}"></span>
+                <button type="button" class="btn glyphicon glyphicon-remove pull-right btn-remove" data-url="{{ url_for('keyword.keyword_delete', keyword_id=keyword.id) }}"></button>
             </li>
         {% endfor %}
        </ul>
