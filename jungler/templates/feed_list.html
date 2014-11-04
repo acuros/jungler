@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
 {% block page_head %}
     <h1>기사 목록</h1>
+    <button type="button" class="btn btn-default btn-refresh pull-right">
+        <span class="glyphicon glyphicon-repeat"></span>
+        Ajax Refresh
+    </button>
 {% endblock %}
 {% block page_body %}
     <div class="feed-list">
         {% autoescape false %}
         {% for feed in feeds %}
-            <div class="panel panel-default">
+            <div class="panel panel-default" data-id="{{ feed.id }}">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <a href="{{ url_for('feed.feed_detail', feed_id=feed.id) }}" class="feed-link">{{ feed.title }}</a>
@@ -24,4 +28,70 @@
         {% endfor %}
         {% endautoescape %}
     </div>
+{% endblock %}
+{% block extra %}
+    <script>
+        function getMoreData(lastFeedId)
+        {
+            function getPanelEl(id, title, summary, keywords)
+            {
+                var $panelEl = $('<div class="panel panel-default" data-id="' + id + '"></div>'),
+                    $panelHeadEl = $('<div class="panel-heading"></div>'),
+                    $panelBodyEl = $('<div class="panel-body"></div>');
+
+                var $el = $('<h3 class="panel-title"></h3>');
+                $el.append('<a href="/feeds/' + id + '" class="feed-link">' + title + '</a>');
+                $panelHeadEl.append($el);
+                $el = $('<span class="pull-right tag-new"></span>');
+                $el.append('<span class="glyphicon glyphicon-chevron-up"></span>New');
+                $panelHeadEl.append($el);
+
+                var $el = $('<div class="keyword-list pull-right"></div>');
+                for(var i=0; i < keywords.length; i++)
+                    $el.append('<span class="label label-primary">' + keywords[i].name + '</span>')
+                $panelBodyEl.append(summary).append($el);
+                $panelHeadEl.append($('<h3 class="panel-title"></h3>').append(''))
+                $panelEl.append($panelHeadEl).append($panelBodyEl);
+                return $panelEl;
+            }
+
+            $.ajax(
+            {
+                type: "get",
+                url: "{{ url_for('feed.additional_feeds') }}?last_feed_id=" + lastFeedId,
+                success:function(data)
+                {
+                    if(data.status.code == 'OK')
+                    {
+                        var feeds = data.feeds.reverse();
+                        if(feeds.length == 0)
+                        {
+                            alert('더 이상 가져올 데이터가 없습니다.');
+                             return
+                        }
+                        for(var i=0; i < feeds.length; i++)
+                        {
+                            var feed = feeds[i],
+                                $panelEl = getPanelEl(feed.id, feed.title, feed.summary, feed.keywords);
+                                $('.feed-list').prepend($panelEl);
+                        }
+                    }
+                    else
+                    {
+                        alert(data.status.reason);
+                    }
+                },
+                error:function(e)
+                {
+                    alert('문제가 발생했습니다.\n다시 시도 해주세요.');
+                }
+            });
+        }
+
+        $('.btn-refresh').click(function()
+        {
+            var lastFeedId = $('.feed-list').children().first().attr('data-id');
+            getMoreData(lastFeedId)
+        })
+    </script>
 {% endblock %}
