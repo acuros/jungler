@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, redirect, url_for
 
 from jungler.config import DefaultConfig
 
