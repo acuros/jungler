@@ -15,7 +15,7 @@ class Feed(db.Model, IdMixin, CRUDMixin, TimestampMixin, SerializerMixin):
 
     keywords = db.relationship(Keyword.__name__, secondary='feed_keywords', backref='feeds')
 
-    fields = ('title', 'content', 'summary', 'url', 'write_time', 'keywords', 'created_at', 'updated_at')
+    fields = ('id', 'title', 'content', 'summary', 'url', 'write_time', 'keywords', 'created_at', 'updated_at')
 
     def __init__(self, title, content, summary, url, write_time):
         self.title = title

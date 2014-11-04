@@ -7,7 +7,7 @@ class Keyword(db.Model, IdMixin, CRUDMixin, TimestampMixin, SerializerMixin):
     __tablename__ = 'keywords'
 
     name = db.Column(db.String(100), nullable=False, index=True, unique=True)
-    fields = ('id', 'name', 'created_at', 'updated_at')
+    fields = ('id', 'name')
 
     def __init__(self, name):
         self.name = name
