@@ -31,7 +31,7 @@
 {% endblock %}
 {% block extra %}
     <script>
-        function getMoreData(lastFeedId)
+        function getMoreData(lastFeedId, is_allow_alert)
         {
             function getPanelEl(id, title, summary, keywords)
             {
@@ -64,7 +64,7 @@
                     if(data.status.code == 'OK')
                     {
                         var feeds = data.feeds.reverse();
-                        if(feeds.length == 0)
+                        if(feeds.length == 0 && is_allow_alert)
                         {
                             alert('더 이상 가져올 데이터가 없습니다.');
                              return
@@ -88,10 +88,14 @@
             });
         }
 
-        $('.btn-refresh').click(function()
+        $(document).ready(function()
         {
-            var lastFeedId = $('.feed-list').children().first().attr('data-id');
-            getMoreData(lastFeedId)
-        })
+            $('.btn-refresh').click(function()
+            {
+                var lastFeedId = $('.feed-list').children().first().attr('data-id');
+                getMoreData(lastFeedId, true);
+            });
+            setInterval("getMoreData($('.feed-list').children().first().attr('data-id'), false)", 1000 * 60);
+        });
     </script>
 {% endblock %}
