@@ -26,8 +26,6 @@ class DefaultConfig(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///%s/jungler.db' % BASE_DIR
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO = False
-    #SQLALCHEMY_POOL_SIZE = 64
-    #SQLALCHEMY_MAX_OVERFLOW = 16
 
     NAVER_SEARCH_API_KEY = 'fc5ad3706cf041be6ec2b8fd2dda353b'
     BROKER_URL = "amqp://jungler:%s@localhost:5672/jungler" % (
@@ -43,3 +41,6 @@ class DeployConfig(DefaultConfig):
     DEBUG = False
     TESTING = False
     SERVER_NAME = ''
+
+    SQLALCHEMY_DATABASE_URI = 'mysql://jungler:%s@localhost/jungler' % secret.DATABASE_PASSWORD
+    SQLALCHEMY_MAX_OVERFLOW = 16
