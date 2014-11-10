@@ -1,1 +1,1 @@
-python runcelery.py -A jungler.tasks worker --loglevel=info --logfile="./logs/celeryd.log"
+celery -A jungler.tasks worker --loglevel=info --logfile="./logs/celeryd.log" --detach
