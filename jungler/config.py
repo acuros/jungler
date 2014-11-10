@@ -38,9 +38,5 @@ class TestConfig(DefaultConfig):
 
 
 class DeployConfig(DefaultConfig):
-    DEBUG = False
-    TESTING = False
-    SERVER_NAME = ''
-
     SQLALCHEMY_DATABASE_URI = 'mysql://jungler:%s@localhost/jungler' % secret.DATABASE_PASSWORD
     SQLALCHEMY_MAX_OVERFLOW = 16
